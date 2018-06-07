@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">FoodFighters</string>
     <string name="title_activity_maps">Map</string>
+    <string-array name="num_restaurants">
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+    </string-array>
 </resources>
