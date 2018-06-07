@@ -43,8 +43,6 @@
         </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".ListActivity" />
-        <activity android:name=".ReviewsActivity" />
         <activity android:name=".RestaurantDetailsActivity" />
     </application>
 
