@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
+import com.yelp.fusion.client.models.Business
 import edu.washington.zhang007.foodfighters.model.BusinessData
 import edu.washington.zhang007.foodfighters.model.HenryCallback
 import edu.washington.zhang007.foodfighters.model.Preferences
@@ -137,8 +138,20 @@ class LandingActivity : AppCompatActivity(), HenryCallback {
 
         Log.i(TAG, "BusinessData size: ${BusinessData.size()}")
 
+        val businessHolder: ArrayList<Business> = arrayListOf()
+
         //Fetches a random business
-        BusinessData.getRandom()
+        for (i in 0 until Preferences.numChoices.toInt()) {
+            businessHolder.add(BusinessData.getRandom())
+        }
+
+        Log.i(TAG, "${businessHolder.size}")
+
+        val intent = Intent(this, MapsActivity::class.java)
+
+        intent.putExtra("QQ", businessHolder)
+
+        startActivity(intent)
     }
 
     override fun henryFailure() {
