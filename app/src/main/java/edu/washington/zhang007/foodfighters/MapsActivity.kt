@@ -19,6 +19,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.yelp.fusion.client.models.Business
+import edu.washington.zhang007.foodfighters.model.Preferences
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -126,25 +127,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        val data = intent.getSerializableExtra("QQ") as ArrayList<Business>
+
+        for (i in 0 until Preferences.numChoices.toInt()) {
+            val business = data.get(i)
+            Log.i(TAG, "Restaraunt: " + business.name)
+            val latLng = LatLng(business.coordinates.latitude, business.coordinates.longitude)
+            val markerOptions = MarkerOptions()
+                    .position(latLng)
+                    .title(business.name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            val marker: Marker = mMap?.addMarker(markerOptions)
+            marker.tag = i
+        }
+
         mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
             override fun onMarkerClick(marker: Marker): Boolean {
 
                 val intent = Intent(this@MapsActivity, RestaurantDetailsActivity::class.java)
-                intent.putExtra("address", "address")
+                intent.putExtra("Business", data.get(marker.tag as Int))
+
+                if (intent.hasExtra("Business") == null) {
+                    Log.i(TAG, "nothing in intent")
+                }
 
                 startActivity(intent)
 
                 return false
             }
         })
-
-        val data = intent.getSerializableExtra("QQ") as ArrayList<Business>
-
-        var bundle = arrayOf("")
-        for (i in 0 until bundle.size) {
-            var restMarker = mMap.addMarker(MarkerOptions().position(LatLng(0.0,0.0)).title("Restaurantname"))
-            restMarker.tag = i
-        }
 
         // Init google play service
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
