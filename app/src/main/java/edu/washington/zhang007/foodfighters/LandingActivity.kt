@@ -1,9 +1,13 @@
 package edu.washington.zhang007.foodfighters
 
 import android.content.Intent
+import android.annotation.SuppressLint
+import android.content.Context
+import android.location.LocationManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
 import com.yelp.fusion.client.models.SearchResponse
 import kotlinx.android.synthetic.main.activity_landing.*
@@ -18,6 +22,7 @@ class LandingActivity : AppCompatActivity() {
     val TAG = "LandingActivity"
     val yelp_limit = "50" // maximum # of restaurants returned per call
 
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing)
@@ -31,6 +36,18 @@ class LandingActivity : AppCompatActivity() {
         params.put("longitude", "-122.3035") // will be user set
         params.put("radius", prefs.radius) // will be user set
         params.put("limit", yelp_limit) // set to maximum per call
+        val lm = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        val lat = location.latitude
+        val lng = location.longitude
+
+        Log.i(TAG, "LAT: $lat")
+        Log.i(TAG, "LNG: $lng")
+
+        params.put("latitude", "$lat") // will be user set
+        params.put("longitude", "$lng") // will be user set
+        params.put("radius", "1000") // will be user set
+        params.put("limit", "50") // set to maximum per call
 
         val callback = object : Callback<SearchResponse> {
 
@@ -43,7 +60,7 @@ class LandingActivity : AppCompatActivity() {
                 val businesses = searchResponse.businesses
 
                 for (i in 0..(restaurantChoices.toInt() - 1)) {
-                    val j = (0..50).random() // upper limit should be as many as I can pull w/ offset?
+                    val j = (0 until businesses.size).random() // upper limit should be as many as I can pull w/ offset?
                     Log.i(TAG, i.toString() + " restnum=" + j.toString() + " = " + businesses.get(j).name)
                 }
             }
@@ -56,7 +73,7 @@ class LandingActivity : AppCompatActivity() {
         val call = yelpFusionApi.getBusinessSearch(params)
         call.enqueue(callback)
 
-        val prefsButton = btn_prefs
+        val prefsButton = button
 
         prefsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
