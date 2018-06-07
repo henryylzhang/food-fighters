@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
+import edu.washington.zhang007.foodfighters.model.BusinessData
 import edu.washington.zhang007.foodfighters.model.HenryCallback
 import edu.washington.zhang007.foodfighters.model.Preferences
 import edu.washington.zhang007.foodfighters.model.YelpRequestCallBack
@@ -133,6 +134,11 @@ class LandingActivity : AppCompatActivity(), HenryCallback {
     override fun henrySuccess() {
         // Do stuff on UI here.
         loadingText.text = "Done! Success!"
+
+        Log.i(TAG, "BusinessData size: ${BusinessData.size()}")
+
+        //Fetches a random business
+        BusinessData.getRandom()
     }
 
     override fun henryFailure() {

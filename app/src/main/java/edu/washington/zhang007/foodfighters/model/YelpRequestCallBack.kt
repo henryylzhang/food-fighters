@@ -28,14 +28,9 @@ class YelpRequestCallBack(val lat: Double, val long: Double,
 
     override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
         val searchResponse = response.body()
-        val restaurantChoices = Preferences.numChoices
         val businesses = searchResponse.businesses
 
-        for (i in 0..(restaurantChoices.toInt() - 1)) {
-            val j = (0 until businesses.size).random()
-            Log.i(TAG, i.toString() + " restnum=" + j.toString() + " = " + businesses.get(j).name)
-        }
-
+        BusinessData.replaceData(businesses)
         callback?.henrySuccess()
     }
 
