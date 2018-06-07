@@ -38,9 +38,17 @@ class LandingActivity : AppCompatActivity() {
         params.put("limit", yelp_limit) // set to maximum per call
         val lm = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        val lat = location.latitude
-        val lng = location.longitude
 
+        var lat: Double?
+        var lng: Double?
+
+        if (location == null) {
+            lat = 47.6553
+            lng = -122.3035
+        } else {
+            lat = location.latitude
+            lng = location.longitude
+        }
         Log.i(TAG, "LAT: $lat")
         Log.i(TAG, "LNG: $lng")
 
@@ -55,12 +63,12 @@ class LandingActivity : AppCompatActivity() {
             override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
                 val searchResponse = response.body()
 
-                val restaurantChoices = prefs.numChoices // this will be set to user preference later on
+                val restaurantChoices = prefs.numChoices
 
                 val businesses = searchResponse.businesses
 
                 for (i in 0..(restaurantChoices.toInt() - 1)) {
-                    val j = (0 until businesses.size).random() // upper limit should be as many as I can pull w/ offset?
+                    val j = (0 until businesses.size).random()
                     Log.i(TAG, i.toString() + " restnum=" + j.toString() + " = " + businesses.get(j).name)
                 }
             }
