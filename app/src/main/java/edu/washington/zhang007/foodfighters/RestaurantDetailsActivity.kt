@@ -33,19 +33,14 @@ class RestaurantDetailsActivity : AppCompatActivity() {
             val restName = text_restaurantName
             val rating = text_rating
             val phone = text_phone
-            val hours = text_businessHours
 
             val sendText = btn_text
 
             val business = intent.getSerializableExtra("Business") as Business
 
-            if (business == null) {
-                println("YO I'M NULL")
-            }
             restName.text = business.name
             rating.text = business.rating.toString() + " Stars"
             phone.text = business.phone
-            // hours.text = business.hours.toString()
 
             phone.setOnClickListener {
                 val intent = Intent(Intent.ACTION_CALL)

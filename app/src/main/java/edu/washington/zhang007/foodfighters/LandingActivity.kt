@@ -145,8 +145,6 @@ class LandingActivity : AppCompatActivity(), HenryCallback {
             businessHolder.add(BusinessData.getRandom())
         }
 
-        Log.i(TAG, "${businessHolder.size}")
-
         val intent = Intent(this, MapsActivity::class.java)
 
         intent.putExtra("QQ", businessHolder)

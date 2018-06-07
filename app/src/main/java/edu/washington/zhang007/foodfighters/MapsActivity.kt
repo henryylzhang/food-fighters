@@ -135,9 +135,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
             val marker: Marker = mMap?.addMarker(markerOptions)
             marker.tag = i
-            if (marker.tag == null) {
-                Log.i(TAG, "Restaraunt: " + business.name + " has null tag")
-            }
         }
 
         mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
