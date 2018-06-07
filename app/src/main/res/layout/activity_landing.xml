@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".LandingActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background_landing"
+        android:scaleType = "centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff000000"
+        android:alpha="0.3" />
+
     <Button
         android:id="@+id/btn_settings"
         android:layout_width="wrap_content"

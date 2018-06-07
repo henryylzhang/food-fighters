@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:background="#ff000000"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="55dp" />
+
     <TextView
         android:id="@+id/textEdit_numSuggestions"
         android:layout_width="wrap_content"
@@ -15,6 +23,7 @@
         android:layout_marginTop="36dp"
         android:text="Number of Suggestions"
         app:layout_constraintEnd_toStartOf="@+id/spinner_numSuggestions"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,16 +38,20 @@
         android:text="Radius (meters)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/editText_maxDistance"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEdit_numSuggestions" />
+        app:layout_constraintTop_toBottomOf="@+id/textEdit_numSuggestions"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Spinner
         android:id="@+id/spinner_numSuggestions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textEdit_numSuggestions"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -46,12 +59,14 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="meters"
         android:inputType="number"
         android:text="1000"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_maxDistance"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_numSuggestions" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView_maxDistance"
+        app:layout_constraintTop_toTopOf="@+id/textView_maxDistance" />
 
 </android.support.constraint.ConstraintLayout>
