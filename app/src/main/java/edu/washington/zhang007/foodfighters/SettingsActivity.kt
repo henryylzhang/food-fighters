@@ -41,11 +41,9 @@ class SettingsActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 var dist = maxDist.text.toString()
 
-                if(dist == "") {
+                if(maxDist.text.isEmpty()) {
                     maxDist.setText("1000")
-                }
-
-                if(dist.toInt() > 40000) { // max distance for Yelp API call
+                } else if (dist.toInt() > 40000) { // max distance for Yelp API call
                     maxDist.setText("40000")
 
                     dist = "40000"

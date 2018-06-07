@@ -50,6 +50,12 @@ class LandingActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        val searchButton = btn_search
+
+        searchButton.setOnClickListener {
+            yelpSearch()
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -124,7 +130,7 @@ class LandingActivity : AppCompatActivity() {
         }
 
         val apiFactory = YelpFusionApiFactory()
-        val yelpFusionApi = apiFactory.createAPI("Y-Oa9oQR0sV6OBB4FX7ItzltmQCgP5sqFL9Y0xD-F5uJ39ci53_lNgzD2nrZyxa3FkeAboQaDO833ufEm0fVsnq5wqIaGME6OSVZ6r69TI6Unz4rBFVgI_heLHP8WnYx")
+        val yelpFusionApi = apiFactory.createAPI(getString(R.string.yelp_key))
         val params: HashMap<String, String> = hashMapOf()
 
         params.put("latitude", "${Preferences.latitude}") // will be user set
@@ -134,6 +140,7 @@ class LandingActivity : AppCompatActivity() {
 
         val callback = object : Callback<SearchResponse> {
             override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
+                Log.i(TAG, "responding")
                 val searchResponse = response.body()
                 val restaurantChoices = Preferences.numChoices
                 val businesses = searchResponse.businesses
