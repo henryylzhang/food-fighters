@@ -8,7 +8,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class YelpRequestCallBack(val lat: Double, val long: Double,
-                          val radius: String): Callback<SearchResponse> {
+                          val radius: String, private val callback: CustomCallback?): Callback<SearchResponse> {
 
     private val TAG = "YelpRequestCallBack"
     private val yelp_limit = "50" // maximum # of restaurants returned per call
@@ -35,9 +35,17 @@ class YelpRequestCallBack(val lat: Double, val long: Double,
             val j = (0 until businesses.size).random()
             Log.i(TAG, i.toString() + " restnum=" + j.toString() + " = " + businesses.get(j).name)
         }
+
+        callback?.onSuccess()
     }
 
     override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
         Log.e(TAG, t.toString())
+        callback?.onFailure()
     }
+}
+
+interface CustomCallback {
+    fun onSuccess()
+    fun onFailure()
 }

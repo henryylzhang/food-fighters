@@ -14,14 +14,18 @@ import android.widget.Toast
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
+import edu.washington.zhang007.foodfighters.model.CustomCallback
 import edu.washington.zhang007.foodfighters.model.Preferences
 import edu.washington.zhang007.foodfighters.model.YelpRequestCallBack
 import kotlinx.android.synthetic.main.activity_landing.*
 
-class LandingActivity : AppCompatActivity() {
+class LandingActivity : AppCompatActivity(), CustomCallback {
 
     private val TAG = "LandingActivity"
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+
+    private val loadingText = loading_text
 
     //------------------------------------------------------------------
     //   Activity Overrides
@@ -36,14 +40,12 @@ class LandingActivity : AppCompatActivity() {
         getInitialLocation()
 
         val settingsButton = btn_settings
+        val searchButton = btn_search
 
         settingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
-
             startActivity(intent)
         }
-
-        val searchButton = btn_search
 
         searchButton.setOnClickListener {
             yelpSearch()
@@ -115,12 +117,24 @@ class LandingActivity : AppCompatActivity() {
             return
         }
 
+        loadingText.text = "Searching..."
+
         val apiFactory = YelpFusionApiFactory()
         val yelpFusionApi = apiFactory.createAPI(getString(R.string.yelp_key))
 
-        val callback = YelpRequestCallBack(Preferences.latitude!!, Preferences.longitude!!, Preferences.radius)
+        val callback = YelpRequestCallBack(Preferences.latitude!!, Preferences.longitude!!,
+                Preferences.radius, this)
 
         val call = yelpFusionApi.getBusinessSearch(callback.params)
         call.enqueue(callback)
+    }
+
+    override fun onSuccess() {
+        // Do stuff on UI here.
+        loadingText.text = "Done! Success!"
+    }
+
+    override fun onFailure() {
+        loadingText.text = "Failed"
     }
 }
