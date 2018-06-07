@@ -43,13 +43,13 @@ class LandingActivity : AppCompatActivity() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         getInitialLocation()
 
-//        val prefsButton =
-//
-//        prefsButton.setOnClickListener {
-//            val intent = Intent(this, SettingsActivity::class.java)
-//
-//            startActivity(intent)
-//        }
+        val settingsButton = btn_settings
+
+        settingsButton.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+
+            startActivity(intent)
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

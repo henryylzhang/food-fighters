@@ -2,6 +2,7 @@ package edu.washington.zhang007.foodfighters
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.Preference
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -15,8 +16,6 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        var prefs = Preferences()
-
         val numChoices = spinner_numSuggestions
 
         val choicesAdapter: ArrayAdapter<CharSequence> =
@@ -29,7 +28,7 @@ class SettingsActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val num = numChoices.getItemAtPosition(position).toString()
 
-                prefs.numChoices = num
+                Preferences.numChoices = num
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -52,7 +51,7 @@ class SettingsActivity : AppCompatActivity() {
                     dist = "40000"
                 }
 
-                prefs.radius = dist
+                Preferences.radius = dist
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
