@@ -10,22 +10,22 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
-import edu.washington.zhang007.foodfighters.model.CustomCallback
+import edu.washington.zhang007.foodfighters.model.HenryCallback
 import edu.washington.zhang007.foodfighters.model.Preferences
 import edu.washington.zhang007.foodfighters.model.YelpRequestCallBack
 import kotlinx.android.synthetic.main.activity_landing.*
 
-class LandingActivity : AppCompatActivity(), CustomCallback {
+class LandingActivity : AppCompatActivity(), HenryCallback {
 
     private val TAG = "LandingActivity"
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
-
-    private val loadingText = loading_text
+    private lateinit var loadingText: TextView
 
     //------------------------------------------------------------------
     //   Activity Overrides
@@ -41,6 +41,7 @@ class LandingActivity : AppCompatActivity(), CustomCallback {
 
         val settingsButton = btn_settings
         val searchButton = btn_search
+        loadingText = tv_loading
 
         settingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
@@ -129,12 +130,12 @@ class LandingActivity : AppCompatActivity(), CustomCallback {
         call.enqueue(callback)
     }
 
-    override fun onSuccess() {
+    override fun henrySuccess() {
         // Do stuff on UI here.
         loadingText.text = "Done! Success!"
     }
 
-    override fun onFailure() {
+    override fun henryFailure() {
         loadingText.text = "Failed"
     }
 }
