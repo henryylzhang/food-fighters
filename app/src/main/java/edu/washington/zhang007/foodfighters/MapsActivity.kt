@@ -36,7 +36,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var locationCallback: LocationCallback
 
     companion object {
-        private const val MY_PERMISSION_CODE: Int = 1000
+        const val MY_PERMISSION_CODE: Int = 1000
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
