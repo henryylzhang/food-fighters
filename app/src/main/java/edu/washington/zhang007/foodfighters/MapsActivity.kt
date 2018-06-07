@@ -1,5 +1,6 @@
 package edu.washington.zhang007.foodfighters
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
@@ -8,17 +9,15 @@ import android.os.Bundle
 import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.location.*
 
-import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -135,6 +134,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+            override fun onMarkerClick(marker: Marker): Boolean {
+
+                val intent = Intent(this@MapsActivity, RestaurantDetailsActivity::class.java)
+                intent.putExtra("address", "address")
+
+                startActivity(intent)
+
+                return false
+            }
+        })
+
+        var bundle = arrayOf("")
+        for (i in 0 until bundle.size) {
+            var restMarker = mMap.addMarker(MarkerOptions().position(LatLng(0.0,0.0)).title("Restaurantname"))
+            restMarker.tag = i
+        }
 
         // Init google play service
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
