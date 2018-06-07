@@ -2,33 +2,25 @@ package edu.washington.zhang007.foodfighters
 
 import android.content.Intent
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationManager
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
-import android.widget.Button
 import android.widget.Toast
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
-import com.yelp.fusion.client.models.SearchResponse
+import edu.washington.zhang007.foodfighters.model.Preferences
+import edu.washington.zhang007.foodfighters.model.YelpRequestCallBack
 import kotlinx.android.synthetic.main.activity_landing.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.Random
-
 
 class LandingActivity : AppCompatActivity() {
 
     private val TAG = "LandingActivity"
-    private val yelp_limit = "50" // maximum # of restaurants returned per call
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     //------------------------------------------------------------------
@@ -75,12 +67,6 @@ class LandingActivity : AppCompatActivity() {
     //------------------------------------------------------------------
     //   Private Method
     //------------------------------------------------------------------
-
-    /*
-    Generates a random number between 'endInclusive' and 'start'
-     */
-    private fun ClosedRange<Int>.random() =
-            Random().nextInt(endInclusive - start) +  start
 
     /*
     Checks location permission
@@ -131,32 +117,10 @@ class LandingActivity : AppCompatActivity() {
 
         val apiFactory = YelpFusionApiFactory()
         val yelpFusionApi = apiFactory.createAPI(getString(R.string.yelp_key))
-        val params: HashMap<String, String> = hashMapOf()
 
-        params.put("latitude", "${Preferences.latitude}") // will be user set
-        params.put("longitude", "${Preferences.longitude}") // will be user set
-        params.put("radius", Preferences.radius) // will be user set
-        params.put("limit", yelp_limit) // set to maximum per call
+        val callback = YelpRequestCallBack(Preferences.latitude!!, Preferences.longitude!!, Preferences.radius)
 
-        val callback = object : Callback<SearchResponse> {
-            override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
-                Log.i(TAG, "responding")
-                val searchResponse = response.body()
-                val restaurantChoices = Preferences.numChoices
-                val businesses = searchResponse.businesses
-
-                for (i in 0..(restaurantChoices.toInt() - 1)) {
-                    val j = (0 until businesses.size).random()
-                    Log.i(TAG, i.toString() + " restnum=" + j.toString() + " = " + businesses.get(j).name)
-                }
-            }
-
-            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-                Log.e(TAG, t.toString())
-            }
-        }
-
-        val call = yelpFusionApi.getBusinessSearch(params)
+        val call = yelpFusionApi.getBusinessSearch(callback.params)
         call.enqueue(callback)
     }
 }

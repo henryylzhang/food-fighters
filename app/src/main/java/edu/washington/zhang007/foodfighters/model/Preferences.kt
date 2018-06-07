@@ -1,4 +1,4 @@
-package edu.washington.zhang007.foodfighters
+package edu.washington.zhang007.foodfighters.model
 
 class Preferences {
     companion object {
