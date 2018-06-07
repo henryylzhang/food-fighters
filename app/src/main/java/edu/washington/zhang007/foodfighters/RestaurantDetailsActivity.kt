@@ -65,10 +65,16 @@ class RestaurantDetailsActivity : AppCompatActivity() {
                 val sms = SmsManager.getDefault()
 
                 val phoneNumber = phone.text.toString()
-                val message = "Join me at " + restName.text.toString() + "! at " +
-                business.coordinates.latitude.toString() + business.coordinates.longitude.toString()
+                val message = StringBuffer()
+                message.append("Join me at ")
+                message.append(restName.text.toString())
+                message.append("! ")
+                message.append("http://maps.google.com?q=")
+                message.append(business.coordinates.latitude.toString())
+                message.append(",")
+                message.append(business.coordinates.longitude.toString())
 
-                sms.sendTextMessage(phoneNumber, null, message, null, null)
+                sms.sendTextMessage(phoneNumber, null, message.toString(), null, null)
             }
         }
 

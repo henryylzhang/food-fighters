@@ -73,11 +73,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 longitude = mLastLocation.longitude
 
                 val latLng = LatLng(latitude, longitude)
-                val markerOptions = MarkerOptions()
-                        .position(latLng)
-                        .title("Position")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                mMarker = mMap?.addMarker(markerOptions)
 
                 mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLng))
                 mMap?.animateCamera(CameraUpdateFactory.zoomTo(11f))
