@@ -140,17 +140,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
             val marker: Marker = mMap?.addMarker(markerOptions)
             marker.tag = i
+            if (marker.tag == null) {
+                Log.i(TAG, "Restaraunt: " + business.name + " has null tag")
+            }
         }
 
         mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
             override fun onMarkerClick(marker: Marker): Boolean {
 
                 val intent = Intent(this@MapsActivity, RestaurantDetailsActivity::class.java)
-                intent.putExtra("Business", data.get(marker.tag as Int))
-
-                if (intent.hasExtra("Business") == null) {
-                    Log.i(TAG, "nothing in intent")
-                }
+                val index = marker.tag as Int
+                val business = data[index]
+                intent.putExtra("Business", business)
 
                 startActivity(intent)
 
