@@ -30,21 +30,21 @@ class RestaurantDetailsActivity : AppCompatActivity() {
                     MY_PERMISSIONS_REQUEST_SEND_SMS)
         }
 
+            // UI
             val restName = text_restaurantName
             val rating = text_rating
-            val phone = text_phone
-
+            val restPhone = text_phone
             val sendText = btn_text
 
             val business = intent.getSerializableExtra("Business") as Business
 
             restName.text = business.name
             rating.text = business.rating.toString() + " Stars"
-            phone.text = business.phone
+            restPhone.text = business.phone
 
-            phone.setOnClickListener {
+            restPhone.setOnClickListener {
                 val intent = Intent(Intent.ACTION_CALL)
-                intent.setData(Uri.parse("tel:" + phone.text))
+                intent.setData(Uri.parse("tel:" + restPhone.text))
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
                         != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this,
@@ -56,13 +56,14 @@ class RestaurantDetailsActivity : AppCompatActivity() {
                 }
             }
 
-            btn_text.setOnClickListener {
-                if (phone.text.isEmpty() || phone.text.length != 10) {
-                    Toast.makeText(this, "Phone numbers are 10 numbers long!", Toast.LENGTH_SHORT)
+            sendText.setOnClickListener {
+                val friendPhone = editText_friendPhone.text
+                if (friendPhone.isEmpty() || friendPhone.length != 10) {
+                    Toast.makeText(this, "Phone numbers are 10 numbers long!", Toast.LENGTH_SHORT).show()
                 } else {
                     val sms = SmsManager.getDefault()
 
-                    val friendPhone = editText_friendPhone.text.toString()
+                    val friendPhoneString = friendPhone.toString()
 
                     val message = StringBuffer()
                     message.append("Join me at ")
@@ -73,7 +74,8 @@ class RestaurantDetailsActivity : AppCompatActivity() {
                     message.append(",")
                     message.append(business.coordinates.longitude.toString())
 
-                    sms.sendTextMessage(friendPhone, null, message.toString(), null, null)
+                    sms.sendTextMessage(friendPhoneString, null, message.toString(),
+                                        null, null)
 
                     Toast.makeText(this, "Invitation Sent!", Toast.LENGTH_SHORT).show()
                 }

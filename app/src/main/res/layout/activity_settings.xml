@@ -6,14 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.2"
-        android:background="#ff000000"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="55dp" />
-
     <TextView
         android:id="@+id/textEdit_numSuggestions"
         android:layout_width="wrap_content"
@@ -68,5 +60,17 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView_maxDistance"
         app:layout_constraintTop_toTopOf="@+id/textView_maxDistance" />
+
+    <Button
+        android:id="@+id/btn_savePrefs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_maxDistance" />
 
 </android.support.constraint.ConstraintLayout>

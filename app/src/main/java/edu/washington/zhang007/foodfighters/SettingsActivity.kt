@@ -18,7 +18,13 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         val numChoices = spinner_numSuggestions
+        val maxDist = editText_maxDistance
+        val save = btn_savePrefs
 
+        var numChoicesString = Preferences.numChoices
+        var radiusString = Preferences.radius
+
+        // set up choices spinner
         val choicesAdapter: ArrayAdapter<CharSequence> =
                 ArrayAdapter.createFromResource(this, R.array.num_restaurants, android.R.layout.simple_spinner_item)
         choicesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -27,17 +33,15 @@ class SettingsActivity : AppCompatActivity() {
 
         numChoices.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val num = numChoices.getItemAtPosition(position).toString()
-
-                Preferences.numChoices = num
-                Toast.makeText(this@SettingsActivity, "Number of Choices Updated!", Toast.LENGTH_SHORT).show()
+                numChoicesString = numChoices.getItemAtPosition(position).toString()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
 
-        val maxDist = editText_maxDistance
+        // set up radius
+        maxDist.setText(radiusString) // save distance from before
 
         maxDist.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -45,13 +49,12 @@ class SettingsActivity : AppCompatActivity() {
 
                 if(maxDist.text.isEmpty()) {
                     maxDist.setText("1000")
+                    maxDist.setSelection(dist.length) // set cursor at end
                 } else if (dist.toInt() > 40000) { // max distance for Yelp API call
                     maxDist.setText("40000")
-
-                    dist = "40000"
                 }
 
-                Preferences.radius = dist
+                radiusString = dist
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -60,5 +63,12 @@ class SettingsActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
+
+        save.setOnClickListener {
+            Preferences.numChoices = numChoicesString
+            Preferences.radius = radiusString
+
+            Toast.makeText(this, "Preferences Saved!", Toast.LENGTH_SHORT).show()
+        }
     }
 }
