@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import edu.washington.zhang007.foodfighters.model.Preferences
 import kotlinx.android.synthetic.main.activity_settings.*
 
@@ -29,6 +30,7 @@ class SettingsActivity : AppCompatActivity() {
                 val num = numChoices.getItemAtPosition(position).toString()
 
                 Preferences.numChoices = num
+                Toast.makeText(this@SettingsActivity, "Number of Choices Updated!", Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {

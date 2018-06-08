@@ -70,6 +70,8 @@ class RestaurantDetailsActivity : AppCompatActivity() {
                 message.append(business.coordinates.longitude.toString())
 
                 sms.sendTextMessage(editText_friendPhone.text.toString(), null, message.toString(), null, null)
+
+                Toast.makeText(this, "Invitation Sent!", Toast.LENGTH_SHORT).show()
             }
         }
 
