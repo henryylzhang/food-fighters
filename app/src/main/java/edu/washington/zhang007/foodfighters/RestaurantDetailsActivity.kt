@@ -69,7 +69,7 @@ class RestaurantDetailsActivity : AppCompatActivity() {
                 message.append(",")
                 message.append(business.coordinates.longitude.toString())
 
-                sms.sendTextMessage(phoneNumber, null, message.toString(), null, null)
+                sms.sendTextMessage(editText_friendPhone.toString(), null, message.toString(), null, null)
             }
         }
 
