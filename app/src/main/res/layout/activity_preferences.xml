@@ -4,50 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
+    tools:context=".PreferencesActivity">
 
     <TextView
-        android:id="@+id/textEdit_numSuggestions"
+        android:id="@+id/textEdit_numChoices"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="36dp"
-        android:text="Number of Suggestions"
-        app:layout_constraintEnd_toStartOf="@+id/spinner_numSuggestions"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:text="Number of Choices"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_maxDistance"
+        android:id="@+id/textView_radius"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="400dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Radius (meters)"
+        android:text="Search Radius (meters)"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editText_maxDistance"
+        app:layout_constraintEnd_toStartOf="@+id/editText_radius"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEdit_numSuggestions"
+        app:layout_constraintTop_toBottomOf="@+id/textEdit_numChoices"
         app:layout_constraintVertical_bias="1.0" />
 
     <Spinner
-        android:id="@+id/spinner_numSuggestions"
+        android:id="@+id/spinner_numChoices"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textEdit_numSuggestions"
+        app:layout_constraintStart_toEndOf="@+id/textEdit_numChoices"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText_maxDistance"
+        android:id="@+id/editText_radius"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -55,11 +52,11 @@
         android:hint="meters"
         android:inputType="number"
         android:text="1000"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_maxDistance"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView_maxDistance"
-        app:layout_constraintTop_toTopOf="@+id/textView_maxDistance" />
+        app:layout_constraintStart_toEndOf="@+id/textView_radius"
+        app:layout_constraintTop_toTopOf="@+id/textView_radius" />
 
     <Button
         android:id="@+id/btn_savePrefs"
@@ -71,6 +68,6 @@
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_maxDistance" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_radius" />
 
 </android.support.constraint.ConstraintLayout>

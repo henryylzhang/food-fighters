@@ -9,16 +9,16 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import edu.washington.zhang007.foodfighters.model.Preferences
-import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.activity_preferences.*
 
-class SettingsActivity : AppCompatActivity() {
+class PreferencesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        setContentView(R.layout.activity_preferences)
 
-        val numChoices = spinner_numSuggestions
-        val maxDist = editText_maxDistance
+        val numChoices = spinner_numChoices
+        val maxDist = editText_radius
         val save = btn_savePrefs
 
         var numChoicesString = Preferences.numChoices

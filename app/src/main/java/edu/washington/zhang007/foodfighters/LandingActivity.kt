@@ -41,12 +41,12 @@ class LandingActivity : AppCompatActivity(), HenryCallback {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         getInitialLocation()
 
-        val settingsButton = btn_settings
+        val preferencesButton = btn_preferences
         val searchButton = btn_search
         loadingText = tv_loading
 
-        settingsButton.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
+        preferencesButton.setOnClickListener {
+            val intent = Intent(this, PreferencesActivity::class.java)
             startActivity(intent)
         }
 
