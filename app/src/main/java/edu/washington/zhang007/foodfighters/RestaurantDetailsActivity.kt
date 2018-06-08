@@ -57,21 +57,26 @@ class RestaurantDetailsActivity : AppCompatActivity() {
             }
 
             btn_text.setOnClickListener {
-                val sms = SmsManager.getDefault()
+                if (phone.text.isEmpty() || phone.text.length != 10) {
+                    Toast.makeText(this, "Phone numbers are 10 numbers long!", Toast.LENGTH_SHORT)
+                } else {
+                    val sms = SmsManager.getDefault()
 
-                val phoneNumber = phone.text.toString()
-                val message = StringBuffer()
-                message.append("Join me at ")
-                message.append(restName.text.toString())
-                message.append("! ")
-                message.append("http://maps.google.com?q=")
-                message.append(business.coordinates.latitude.toString())
-                message.append(",")
-                message.append(business.coordinates.longitude.toString())
+                    val friendPhone = editText_friendPhone.text.toString()
 
-                sms.sendTextMessage(editText_friendPhone.text.toString(), null, message.toString(), null, null)
+                    val message = StringBuffer()
+                    message.append("Join me at ")
+                    message.append(restName.text.toString())
+                    message.append("! ")
+                    message.append("http://maps.google.com?q=")
+                    message.append(business.coordinates.latitude.toString())
+                    message.append(",")
+                    message.append(business.coordinates.longitude.toString())
 
-                Toast.makeText(this, "Invitation Sent!", Toast.LENGTH_SHORT).show()
+                    sms.sendTextMessage(friendPhone, null, message.toString(), null, null)
+
+                    Toast.makeText(this, "Invitation Sent!", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
